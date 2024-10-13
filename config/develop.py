@@ -1,0 +1,14 @@
+MTV_RUN_TIME_NODE = "09:28:10"
+MTV_REPORT_TIME_NODE = "15:05:00"
+CB_RUN_TIME_NODE = "09:40:10"
+TRADE_START_TIME = "09:31:30"
+SHIPPING_SPACE = 1.0
+STRATEGY_ID = '从模拟实盘获取的strategy id'
+TOKEN = '你的账户id'
+# lark config
+FEISHU_GROUP = "模拟实盘"
+FEISHU_APP_ID = '你的飞书APP ID'
+FEISHU_APP_SECRET = '你的飞书APP SECRET'
+# switch
+MTV_SWITCH = True
+
