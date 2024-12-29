@@ -5,7 +5,6 @@
     <img alt="python" src="https://img.shields.io/badge/python-3.8+-%2300599C?logo=python">
     <img alt="license" src="https://img.shields.io/github/license/thisiszhou/CTBZStock">
     <img alt="stars" src="https://img.shields.io/github/stars/thisiszhou/CTBZStock?style=social">
-    <img alt="GitHub all releases" src="https://img.shields.io/github/downloads/thisiszhou/CTBZStock/total?style=social">
 </div>
  
 牛市昙花一现，量化穿越牛熊
