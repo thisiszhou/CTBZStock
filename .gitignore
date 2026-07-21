@@ -13,11 +13,19 @@
 # local data
 data/
 db/
+buffer/
 local_db/
+local_data/
+trade_history.txt
+**/trade_history.txt
+config/cons.py
 #config/develop.py
+.python-version
+.vscode/
 
 # jupyter
 *.ipynb
+*.csv
 
 # Linux trash folder which might appear on any partition or disk
 .Trash-*

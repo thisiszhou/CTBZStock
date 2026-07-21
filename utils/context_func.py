@@ -18,8 +18,8 @@ def get_position(context, symbol):
     return None
 
 
-def get_cash(context):
-    return context.account().cash['available']
+def get_context_cash(context):
+    return int(context.account().cash['available'])
 
 
 def get_all_market_value(context, positions: Dict[str, Position] = None):

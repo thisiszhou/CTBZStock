@@ -1,34 +1,34 @@
-from pydantic import BaseModel
+﻿from pydantic import BaseModel
 from typing import List, Dict, Set, Optional, Union
 from schema.status import OrderType, OrderStatus, OrderSide, ExecType, OrderRejectReason, CancelOrderRejectReason
 import datetime
+from utils.timetool import date2str_sec
 
 
 class InnerStockShoot(BaseModel):
     symbol: str
-    open: float
-    close: float
     pre_close: float
-    amount: float
-    volume: float
     is_suspended: int
     is_st: bool
+
+    open: float
+    close: float
+    amount: float
+    volume: float
 
     inc_close: float
     inc_open: float
     price_max: float
     price_min: float
+    turn_rate: float  # 换手率 * 100
+
+    pe_lyr: Optional[float] = None
+    pcf_lyr_oper: Optional[float] = None
 
     def __init__(self, **kwargs):
         kwargs["pre_close"] = round(kwargs["pre_close"], 2)
         kwargs["inc_close"] = (kwargs["close"] / kwargs["pre_close"] - 1) * 100
         kwargs["inc_open"] = (kwargs["open"] / kwargs["pre_close"] - 1) * 100
-        if kwargs["is_st"]:
-            kwargs["price_max"] = round(kwargs["pre_close"] + round(kwargs["pre_close"] * 0.05, 2), 2)
-            kwargs["price_min"] = round(kwargs["pre_close"] - round(kwargs["pre_close"] * 0.05, 2), 2)
-        else:
-            kwargs["price_max"] = round(kwargs["pre_close"] + round(kwargs["pre_close"] * 0.1, 2), 2)
-            kwargs["price_min"] = round(kwargs["pre_close"] - round(kwargs["pre_close"] * 0.1, 2), 2)
         super().__init__(**kwargs)
 
 
@@ -43,8 +43,8 @@ class BaseStock(BaseModel):
 
 class StockFeature(BaseModel):
     symbol: str
-    pub_date: datetime.datetime
-    TOTMKTCAP: float
+    tot_mv: Optional[float] = None
+    pe_lyr: Optional[float] = None
 
 
 class StockShootD1(BaseModel):
@@ -55,13 +55,14 @@ class StockShootD1(BaseModel):
     pre_close: float
     amount: float
     volume: float
+    turn_rate: float
 
 
 class Position(BaseModel):
     symbol: str  # 'SHSE.600419'
     side: int
     volume: int  # 总持仓量
-    volume_today: int  # 今体买入量
+    volume_today: int  # 今买入量
     market_value: float  # 持仓总市值
     price: float  # 当前行情价
     vwap: float  # 持仓均价
@@ -106,3 +107,11 @@ class ExecRpt(BaseModel):
     amount: float
     commission: float
     cost: float
+    created_at: str
+
+    def __init__(self, **kwargs):
+        kwargs["created_at"] = date2str_sec(kwargs["created_at"])
+        super().__init__(**kwargs)
+
+
+
